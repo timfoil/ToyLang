@@ -1,0 +1,5 @@
+fun void main() {}
+
+fun bool fun2(int one, bool two, string helloString) {
+    ret one && two && helloString.exists();
+}

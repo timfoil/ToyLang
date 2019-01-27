@@ -1,0 +1,16 @@
+// antlr4 is a bat file in the scripts/ folder but it's also in PATH
+// run this in the grammar directory for a quick way to generate the current grammar
+
+antlr4 ToyLang.g4 -o ..\output\ -visitor -package net.travitz.lang.toy
+
+
+// move the needed java files to the src directory as desired
+
+// then build the java files to generate the class files
+
+// run this in the out/prroduction/ToyLang directory to generate output (this might change if we manage to switch this
+// project over to java, for some reason I think that intellij is generating the files in a weird directory since I
+// started it as a kotlin project)
+// (grun is also in the scripts directory and in PATH)
+
+grun ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.toy

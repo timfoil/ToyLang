@@ -1,0 +1,8 @@
+*.iml
+.idea/
+out/
+lib/
+# src will be changing a lot allow it later
+src/
+output/
+reference/

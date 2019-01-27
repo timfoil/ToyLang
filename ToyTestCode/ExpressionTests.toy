@@ -1,0 +1,14 @@
+fun void main() {
+    54;
+    true;
+    false;
+    on;
+    off;
+    ON;
+    1 + 1;
+    -30 + 8;
+}
+
+fun int returnSomething() {
+    ret something;
+}
