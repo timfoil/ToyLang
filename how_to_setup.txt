@@ -8,9 +8,14 @@ antlr4 ToyLang.g4 -o ..\output\ -visitor -package net.travitz.lang.toy
 
 // then build the java files to generate the class files
 
-// run this in the out/prroduction/ToyLang directory to generate output (this might change if we manage to switch this
+// run this in the out/production/ToyLang directory to generate output (this might change if we manage to switch this
 // project over to java, for some reason I think that intellij is generating the files in a weird directory since I
 // started it as a kotlin project)
 // (grun is also in the scripts directory and in PATH)
 
 grun ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.toy
+
+//antlr started actually putting the package name in suddenly now you have to go to the same directory
+(out/production/ToyLang) and run this
+
+grun net.travitz.lang.toy.ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.toy
