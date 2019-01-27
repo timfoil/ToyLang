@@ -24,9 +24,12 @@ statements : statement+ ;
 statement : assignment SEMI     //Variable Assignment
           | control_statement   //Control Statement
           | loop_statement      //LOOP BRUDDAH
+          | return_statement SEMI
           | SEMI                //Empty Statement
           | expression SEMI     //Expression
           ;
+
+return_statement : RETURN expression ;
 
 loop_statement : WHILE expression scope //conditional loop
                | LOOP scope  //infinite LOOP
