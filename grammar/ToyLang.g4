@@ -7,7 +7,7 @@ functions : function+;
 
 function : FUNC (type | VOID) ID params scope;
 
-params : '(' ')' //no params
+params : '(' ')'              //no params
        | '(' params_list ')'; //params
 
 params_list : params_list ',' param
@@ -17,22 +17,22 @@ params_list : params_list ',' param
 param : type ID;
 
 scope : '{' statements '}' //statements
-      | '{' '}' ; //no statements
+      | '{' '}' ;          //no statements
 
 statements : statement+ ;
 
-statement : assignment SEMI     //Variable Assignment
-          | control_statement   //Control Statement
-          | loop_statement      //LOOP BRUDDAH
+statement : assignment SEMI       //Variable Assignment
+          | control_statement     //Control Statement
+          | loop_statement        //LOOP BRUDDAH
           | return_statement SEMI
-          | SEMI                //Empty Statement
-          | expression SEMI     //Expression
+          | SEMI                  //Empty Statement
+          | expression SEMI       //Expression
           ;
 
 return_statement : RETURN expression ;
 
 loop_statement : WHILE expression scope //conditional loop
-               | LOOP scope  //infinite LOOP
+               | LOOP scope             //infinite LOOP
                ;
 
 //currently only if, maybe add switches
@@ -127,10 +127,10 @@ primitive_types : 'bool' #bool
                 | 'int' #int
                 | 'string' #str
                 ;
-// Integers
+//Integers
 INT : (MINUS)?[0-9]+;
 
-// Keywords
+//Keywords
 WHILE : 'while';
 FUNC : 'fun';
 RETURN : 'ret';
@@ -148,7 +148,7 @@ BOOL_TYPE : 'bool';
 INT_TYPE : 'int';
 STRING_TYPE : 'string';
 
-// Booleans
+//Booleans
 BOOLEAN : (YES | NO | ON | OFF | TRUE | FALSE);
 YES : 'yes';
 NO : 'no';
@@ -185,22 +185,22 @@ DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
 ELVIS : '?|';
 FORCE_UNWRAP: '!!';
 
-// Math symbols
+//Math symbols
 MULT : '*';
 DIV : '/';
 MINUS : '-';
 PLUS : '+';
 
-// Misc. brackets and puntuation
+//Misc. brackets and puntuation
 SEMI : ';';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
 OPTIONAL_TYPE : '?';
 
-// good ol' fashioned comments
+//good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip;
 
-// Identifiers
+//Identifiers
 ID : [A-Za-z][A-Za-z0-9\-]* ; //match identifiers
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
