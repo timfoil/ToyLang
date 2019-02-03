@@ -14,7 +14,7 @@ params_list : params_list ',' param
             | param
             ;
 
-param : type '?'? ID;
+param : type ID;
 
 scope : '{' statements '}' //statements
       | '{' '}' ; //no statements
