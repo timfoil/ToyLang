@@ -5,7 +5,7 @@ module : functions? EOF;
 
 functions : function+;
 
-function : FUNC type ID params scope;
+function : FUNC (type | VOID) ID params scope;
 
 params : '(' ')' //no params
        | '(' params_list ')'; //params
@@ -14,7 +14,7 @@ params_list : params_list ',' param
             | param
             ;
 
-param : type ID;
+param : type '?'? ID;
 
 scope : '{' statements '}' //statements
       | '{' '}' ; //no statements
@@ -38,22 +38,27 @@ loop_statement : WHILE expression scope //conditional loop
 //currently only if, maybe add switches
 control_statement : if_statement;
 
-if_statement : IF expression scope else_clause
-             | IF expression scope;
+if_statement : IF (assignment | expression) scope else_clause
+             | IF (assignment | expression) scope
+             ;
 
 else_clause: ELSEIF expression scope else_clause
            | ELSE scope;
 
-assignment : LET ID ASSIGNOP expression
-           | ID ASSIGNOP expression;
+assignment : LET MUT? type? ID ASSIGNOP expression //may need to put a : in between type and ID
+           | ID ASSIGNOP expression
+           ;
 
-func_call : ID args;
+func_call : primitive_types ('.'| '?.') ID args chained_end? //built in function
+          | ID ('.'| '?.') ID args chained_end?              //user defined function
+          | ID args chained_end?                             //local args
+          ;
 
 args : '(' arg_list ')'
      | '(' ')'; //emptyArgs
 
-arg_list : arg_list ',' ID
-         | ID
+arg_list : arg_list ',' expression
+         | expression
          ;
 
 //Expression stuff
@@ -78,10 +83,11 @@ add_sub_exp : add_sub_exp '+' mult_div_exp
             | mult_div_exp
             ;
 
-mult_div_exp : mult_div_exp ('*' | '/') pre_incr_decr
+mult_div_exp : mult_div_exp ('*' | '/' | '%') pre_incr_decr
              | pre_incr_decr;
 
 pre_incr_decr : ('++' | '--') post_incr_decr
+              | '!' post_incr_decr
               | post_incr_decr
               ;
 
@@ -90,25 +96,32 @@ post_incr_decr : parenthesized ('++' | '--')
                ;
 
 parenthesized : '(' expression ')'
+              | NADA
               | BOOLEAN
               | INT
               | func_call
               | member_access
-              | variable;
+              | ID
+              ;
 
-member_access : ID '.' ID;
+member_access : ID ('.' | '?.') ID chained_end?;
 
-variable : ID ;
+chained_end : end_func | end_member ;
 
-type : primitiveTypes
-     | ID
+end_func : ('.' | '?.' | '.'| '?.') ID args chained_end? ;
+
+end_member : '.' ID chained_end?;
+
+
+type : primitive_types '?'?
+     | ID '?'?
      ;
 
 
-primitiveTypes : 'bool' #bool
-               | 'int' #int
-               | 'string' #str
-               ;
+primitive_types : 'bool' #bool
+                | 'int' #int
+                | 'string' #str
+                ;
 // Integers
 INT : (MINUS)?[0-9]+;
 
@@ -120,8 +133,10 @@ LOOP : 'loop';
 IF : 'if';
 ELSE: 'else';
 ELSEIF : 'else if';
-
-LET : 'let';
+VOID : 'void';
+NADA : 'nada';
+LET : 'let'; //variable decl
+MUT : 'mut'; //mutable
 
 //primitive type names
 BOOL_TYPE : 'bool';
@@ -151,10 +166,17 @@ MODEQ : '%=';
 OR : '||';
 AND : '&&';
 EQUALS : '==';
+NOT_EQUAL : '!=';
 LESS_THAN : '<';
 GREATER_THAN : '>';
 LESS_THAN_OR_EQ : '<=';
 GREATER_THAN_OR_EQ : '>=';
+INCR : '++';
+DECR : '--';
+DOT : '.';
+DOT_SAFE : '?.';
+ELVIS : '?|';
+FORCE_UNWRAP: '!!';
 
 // Math symbols
 MULT : '*';
@@ -164,6 +186,8 @@ PLUS : '+';
 
 // Misc. brackets and puntuation
 SEMI : ';';
+LEFT_PAREN : '(';
+RIGHT_PAREN : ')';
 
 // good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
