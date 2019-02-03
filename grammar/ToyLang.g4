@@ -42,7 +42,7 @@ if_statement : IF (assignment | expression) scope else_clause
              | IF (assignment | expression) scope
              ;
 
-else_clause: ELSEIF expression scope else_clause
+else_clause: ELSEIF expression scope else_clause?
            | ELSE scope;
 
 assignment : LET MUT? type? ID ASSIGNOP expression //may need to put a : in between type and ID
