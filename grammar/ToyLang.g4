@@ -31,8 +31,9 @@ statement : assignment SEMI       //Variable Assignment
 
 return_statement : RETURN expression ;
 
-loop_statement : WHILE expression scope //conditional loop
-               | LOOP scope             //infinite LOOP
+loop_statement : FOR assignment SEMI expression SEMI expression scope //classic for
+               | WHILE expression scope                               //conditional loop
+               | LOOP scope                                           //infinite LOOP
                ;
 
 //currently only if, maybe add switches
@@ -132,6 +133,7 @@ INT : (MINUS)?[0-9]+;
 
 //Keywords
 WHILE : 'while';
+FOR : 'for';
 FUNC : 'fun';
 RETURN : 'ret';
 LOOP : 'loop';
