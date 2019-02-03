@@ -49,11 +49,6 @@ assignment : LET MUT? type? ID ASSIGNOP expression //may need to put a : in betw
            | ID ASSIGNOP expression
            ;
 
-func_call : primitive_types ('.'| '?.') ID args chained_end? //built in function
-          | ID ('.'| '?.') ID args chained_end?              //user defined function
-          | ID args chained_end?                             //local args
-          ;
-
 args : '(' arg_list ')'
      | '(' ')'; //emptyArgs
 
@@ -86,12 +81,12 @@ add_sub_exp : add_sub_exp '+' mult_div_exp
 mult_div_exp : mult_div_exp ('*' | '/' | '%') pre_incr_decr
              | pre_incr_decr;
 
-pre_incr_decr : ('++' | '--') post_incr_decr
+pre_incr_decr : (INCR | DECR) post_incr_decr
               | '!' post_incr_decr
               | post_incr_decr
               ;
 
-post_incr_decr : parenthesized ('++' | '--')
+post_incr_decr : parenthesized (INCR | DECR)
                | parenthesized
                ;
 
@@ -101,20 +96,30 @@ parenthesized : '(' expression ')'
               | INT
               | func_call
               | member_access
-              | ID
+              | ID (FORCE_UNWRAP | end_elvis)?
               ;
 
-member_access : ID ('.' | '?.') ID chained_end?;
+func_call : primitive_types DOT_OP ID args chained_end? //built in function
+          | ID args chained_end?                        //local args
+          ;
 
-chained_end : end_func | end_member ;
+member_access : ID DOT_OP ID chained_end?;
 
-end_func : ('.' | '?.' | '.'| '?.') ID args chained_end? ;
+chained_end : end_func
+            | end_member
+            | FORCE_UNWRAP
+            | end_elvis
+            ;
 
-end_member : '.' ID chained_end?;
+end_elvis : ELVIS expression;
+
+end_func : DOT_OP ID args chained_end? ;
+
+end_member : DOT_OP ID chained_end?;
 
 
-type : primitive_types '?'?
-     | ID '?'?
+type : primitive_types OPTIONAL_TYPE?
+     | ID OPTIONAL_TYPE?
      ;
 
 
@@ -175,6 +180,8 @@ INCR : '++';
 DECR : '--';
 DOT : '.';
 DOT_SAFE : '?.';
+DOT_UNSAFE : '!!.';
+DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
 ELVIS : '?|';
 FORCE_UNWRAP: '!!';
 
@@ -188,6 +195,7 @@ PLUS : '+';
 SEMI : ';';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
+OPTIONAL_TYPE : '?';
 
 // good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
