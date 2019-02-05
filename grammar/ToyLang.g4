@@ -2,6 +2,7 @@
 grammar ToyLang;
 
 module : functions? EOF;
+//trait_decl : 'trait' ID trait_block;
 
 functions : function+;
 
@@ -46,9 +47,18 @@ if_statement : IF (assignment | expression) scope else_clause
 else_clause: ELSEIF expression scope else_clause?
            | ELSE scope;
 
-assignment : LET MUT? type? ID ASSIGNOP expression //may need to put a : in between type and ID
-           | ID ASSIGNOP expression
+assignment : LET MUT? type? assignable ASSIGNOP expression //may need to put a : in between type and ID ?
+           | assignable ASSIGNOP expression
            ;
+
+assignable : ID '[' expression ']' assignable_member?
+           | ID DOT_OP ID assignable_member?
+           | ID
+           ;
+
+assignable_member : DOT_OP ID '[' expression ']' assignable_member?
+                  | DOT_OP ID assignable_member?
+                  ;
 
 args : '(' arg_list ')'
      | '(' ')'; //emptyArgs
@@ -97,8 +107,22 @@ parenthesized : '(' expression ')'
               | INT
               | func_call
               | member_access
+              | array_access
+              | array_literal
               | ID (FORCE_UNWRAP | end_elvis)?
               ;
+
+//Short and simple/meessy way to create an array, this will likely require more thought in the future?
+array_literal : '[' arr_elements ']';
+
+arr_elements : arr_elements ',' arr_element
+             | arr_element
+             ;
+
+arr_element : expression;
+
+array_access : ID '[' expression ']' chained_end?
+             ;
 
 func_call : primitive_types DOT_OP ID args chained_end? //built in function
           | ID args chained_end?                        //local args
@@ -107,22 +131,29 @@ func_call : primitive_types DOT_OP ID args chained_end? //built in function
 member_access : ID DOT_OP ID chained_end?;
 
 chained_end : end_func
+            | end_array
             | end_member
             | FORCE_UNWRAP
             | end_elvis
             ;
 
-end_elvis : ELVIS expression;
 
 end_func : DOT_OP ID args chained_end? ;
 
+end_array : DOT_OP ID '[' expression ']' chained_end?;
+
 end_member : DOT_OP ID chained_end?;
 
+end_elvis : ELVIS expression;
 
-type : primitive_types OPTIONAL_TYPE?
+
+type : array OPTIONAL_TYPE?
+     | primitive_types OPTIONAL_TYPE?
      | ID OPTIONAL_TYPE?
      ;
 
+//A question mark inside of the brackets indicates an optional array reference
+array : LEFT_SQUARE MUT? type RIGHT_SQUARE;
 
 primitive_types : 'bool' #bool
                 | 'int' #int
@@ -195,8 +226,11 @@ PLUS : '+';
 
 //Misc. brackets and puntuation
 SEMI : ';';
+COMMA_SEP : ',';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
+LEFT_SQUARE : '[';
+RIGHT_SQUARE : ']';
 OPTIONAL_TYPE : '?';
 
 //good ol' fashioned comments
