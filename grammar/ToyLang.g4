@@ -51,14 +51,11 @@ assignment : LET MUT? type? assignable ASSIGNOP expression //may need to put a :
            | assignable ASSIGNOP expression
            ;
 
-assignable : ID '[' expression ']' assignable_member?
-           | ID DOT_OP ID assignable_member?
-           | ID
-           ;
+assignable : ID assignable_next?;
 
-assignable_member : DOT_OP ID '[' expression ']' assignable_member?
-                  | DOT_OP ID assignable_member?
-                  ;
+assignable_next : '[' expression ']' assignable_next?
+                | DOT_OP ID assignable_next?;
+
 
 args : '(' arg_list ')'
      | '(' ')'; //emptyArgs
