@@ -1,0 +1,21 @@
+fun void arrays() {
+    //array creation
+   let [int] a = create_int_array(1); //create a constant array with const elements, using a function
+   let [int] b = [1]; //create a constant array ... elements, using array initializer
+   let mut [bool] c = [yes];
+   let mut [mut bool] d = [yes, no, on, off];
+   //TODO how to imply optional form on rhs?
+   //TODO how to imply mutable containers?
+   let mut [mut int?]? e = [1, 2, 3, 4, 5, 6];
+
+    //multidimensional arrays with mutable optionals at every step
+   let mut [mut int[mut int?]?]? f = [[1, 2, 3, 4], [1, 2, 3, 4]];
+
+   //array access
+   let a_access = a[0]; //indexed starting at 0
+
+}
+
+fun void returnSomething() {
+    ret something;
+}
