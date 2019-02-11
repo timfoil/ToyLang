@@ -50,9 +50,10 @@ else_clause: ELSEIF expression scope else_clause?
 assignment : LET MUT? type? assignable ASSIGNOP expression //may need to put a : in between type and ID ?
            | assignable ASSIGNOP expression
            ;
-
+//TODO double check this logic
 assignable : ID assignable_next?;
 
+//TODO also give this operator a question mark op for conditional assignment
 assignable_next : '[' expression ']' assignable_next?
                 | DOT_OP ID assignable_next?;
 
@@ -99,14 +100,9 @@ post_incr_decr : parenthesized (INCR | DECR)
                ;
 
 parenthesized : '(' expression ')'
-              | NADA
-              | BOOLEAN
-              | INT
-              | func_call
-              | member_access
-              | array_access
-              | array_literal
-              | ID (FORCE_UNWRAP | end_elvis)?
+              | literals
+              | built_in_func_call
+              | ID chained_end_new?
               ;
 
 //Short and simple/meessy way to create an array, this will likely require more thought in the future?
@@ -118,14 +114,22 @@ arr_elements : arr_elements ',' arr_element
 
 arr_element : expression;
 
-array_access : ID '[' expression ']' chained_end?
+//TODO give this the option for this question mark op too? '?['
+array_access : '[' expression ']' chained_end?
              ;
 
-func_call : primitive_types DOT_OP ID args chained_end? //built in function
-          | ID args chained_end?                        //local args
-          ;
+built_in_func_call : primitive_types DOT_OP ID args chained_end?; //built in function
 
-member_access : ID DOT_OP ID chained_end?;
+func_call : args chained_end?;                        //local args
+
+member_access : DOT_OP ID chained_end?;
+
+chained_end_new : func_call
+                | member_access
+                | array_access
+                | FORCE_UNWRAP
+                | end_elvis
+                ;
 
 chained_end : end_func
             | end_array
@@ -133,7 +137,10 @@ chained_end : end_func
             | FORCE_UNWRAP
             | end_elvis
             ;
-
+literals : array_literal
+           | NADA
+           | BOOLEAN
+           | INT;
 
 end_func : DOT_OP ID args chained_end? ;
 
