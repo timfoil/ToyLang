@@ -4,6 +4,7 @@ grammar ToyLang;
 module : functions? EOF;
 //trait_decl : 'trait' ID trait_block;
 
+//TODO type declarations and interfaces/extensions
 functions : function+;
 
 function : FUNC (type | VOID) ID params scope;
@@ -54,7 +55,7 @@ assignment : LET MUT? type? assignable ASSIGNOP expression //may need to put a :
 assignable : ID assignable_next?;
 
 //TODO also give this operator a question mark op for conditional assignment
-assignable_next : '[' expression ']' assignable_next?
+assignable_next : ('[' | '?[') expression ']' assignable_next?
                 | DOT_OP ID assignable_next?;
 
 
@@ -115,8 +116,7 @@ arr_elements : arr_elements ',' arr_element
 arr_element : expression;
 
 //TODO give this the option for this question mark op too? '?['
-array_access : '[' expression ']' chained_end?
-             ;
+array_access : ('[' | '?[') expression ']' chained_end?;
 
 built_in_func_call : primitive_types DOT_OP ID args chained_end?; //built in function
 
@@ -144,16 +144,16 @@ literals : array_literal
 
 end_func : DOT_OP ID args chained_end? ;
 
-end_array : DOT_OP ID '[' expression ']' chained_end?;
+end_array : DOT_OP ID '?[' expression ']' chained_end?;
 
 end_member : DOT_OP ID chained_end?;
 
 end_elvis : ELVIS expression;
 
 
-type : array OPTIONAL_TYPE?
-     | primitive_types OPTIONAL_TYPE?
-     | ID OPTIONAL_TYPE?
+type : array OPTIONAL_IND?
+     | primitive_types OPTIONAL_IND?
+     | ID OPTIONAL_IND?
      ;
 
 //A question mark inside of the brackets indicates an optional array reference
@@ -234,8 +234,9 @@ COMMA_SEP : ',';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
 LEFT_SQUARE : '[';
+LEFTW_ARR_SAFE : '?[';
 RIGHT_SQUARE : ']';
-OPTIONAL_TYPE : '?';
+OPTIONAL_IND : '?';
 
 //good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
