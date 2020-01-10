@@ -106,7 +106,7 @@ parenthesized : '(' expression ')'
               | ID chained_end_new?
               ;
 
-//Short and simple/meessy way to create an array, this will likely require more thought in the future?
+//Short and simple/messy way to create an array, this will likely require more thought in the future?
 array_literal : '[' arr_elements ']';
 
 arr_elements : arr_elements ',' arr_element
@@ -243,5 +243,5 @@ LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip;
 
 //Identifiers
-ID : [A-Za-z][A-Za-z0-9\-]* ; //match identifiers
+ID : [A-Za-z_][A-Za-z0-9\-_]* ; //match identifiers
 WS : [ \t\r\n]+ -> skip; // skip spaces, tabs, newlines
