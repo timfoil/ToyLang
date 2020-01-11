@@ -9,7 +9,10 @@ fun void arrays() {
    let mut [mut int?]? e = [1, 2, 3, 4, 5, 6];
 
     //multidimensional arrays with mutable optionals at every step
-   let mut [mut int[mut int?]?]? f = [[1, 2, 3, 4], [1, 2, 3, 4]];
+   let mut [mut [mut int?]?]? f = [[1, 2, 3, 4], [1, 2, 3, 4]];
+
+    //push it to the limit
+   let mut [mut [mut [mut [mut bool?]?]?]?]? g = [[[[yes], [on]], [[no], [off]]], [[[off], [no]], [[yes], [on]]], NADA];
 
    //array access
    let a_access = a[0]; //indexed starting at 0

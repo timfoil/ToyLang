@@ -163,6 +163,13 @@ primitive_types : 'bool' #bool
                 | 'int' #int
                 | 'string' #str
                 ;
+string_literal : STRING_DEL string_rest;
+
+string_rest :
+            | STRING_CHARACTER
+            | escape_sequence
+            | STRING_DEL
+
 //Integers
 INT : (MINUS)?[0-9]+;
 
@@ -230,6 +237,7 @@ PLUS : '+';
 
 //Misc. brackets and puntuation
 SEMI : ';';
+STRING_DEL : '\'';
 COMMA_SEP : ',';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
@@ -241,6 +249,7 @@ OPTIONAL_IND : '?';
 //good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip;
+
 
 //Identifiers
 ID : [A-Za-z_][A-Za-z0-9\-_]* ; //match identifiers
