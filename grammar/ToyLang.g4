@@ -138,9 +138,10 @@ chained_end : end_func
             | end_elvis
             ;
 literals : array_literal
-           | NADA
-           | BOOLEAN
-           | INT;
+           | STRING_LITERAL
+           | BOOLEAN_LITERAL
+           | INT_LITERAL
+           | NADA;
 
 end_func : DOT_OP ID args chained_end? ;
 
@@ -163,15 +164,22 @@ primitive_types : 'bool' #bool
                 | 'int' #int
                 | 'string' #str
                 ;
-string_literal : STRING_DEL string_rest;
 
-string_rest :
-            | STRING_CHARACTER
-            | escape_sequence
+STRING_LITERAL : STRING_DEL STRING_REST;
+
+//String Things
+fragment STRING_REST :
+            | STRING_CHARACTER STRING_REST
+            | ESCAPE_SEQUENCE STRING_REST
             | STRING_DEL
+            ;
+
+
+fragment STRING_CHARACTER : [^\\\r\n'];
+fragment ESCAPE_SEQUENCE : '\\' ('n' | '\\');
 
 //Integers
-INT : (MINUS)?[0-9]+;
+INT_LITERAL : (MINUS)?[0-9]+;
 
 //Keywords
 WHILE : 'while';
@@ -193,7 +201,7 @@ INT_TYPE : 'int';
 STRING_TYPE : 'string';
 
 //Booleans
-BOOLEAN : (YES | NO | ON | OFF | TRUE | FALSE);
+BOOLEAN_LITERAL : (YES | NO | ON | OFF | TRUE | FALSE);
 YES : 'yes';
 NO : 'no';
 ON : 'on';
