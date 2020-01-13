@@ -1,0 +1,5 @@
+fun void strings() {
+    let string a = 'hello goodbye';
+    let string b = 'escape characters \\ \n';
+    ret;
+}

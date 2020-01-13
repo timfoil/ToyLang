@@ -31,7 +31,8 @@ statement : assignment SEMI       //Variable Assignment
           | expression SEMI       //Expression
           ;
 
-return_statement : RETURN expression ;
+//A ret may or may not have something following it
+return_statement : RETURN expression? ;
 
 loop_statement : FOR assignment SEMI expression SEMI expression scope //classic for
                | WHILE expression scope                               //conditional loop
@@ -168,15 +169,15 @@ primitive_types : 'bool' #bool
 STRING_LITERAL : STRING_DEL STRING_REST;
 
 //String Things
-fragment STRING_REST :
+ fragment STRING_REST :
             | STRING_CHARACTER STRING_REST
             | ESCAPE_SEQUENCE STRING_REST
             | STRING_DEL
             ;
 
 
-fragment STRING_CHARACTER : [^\\\r\n'];
-fragment ESCAPE_SEQUENCE : '\\' ('n' | '\\');
+ fragment STRING_CHARACTER : ~[\\\r\n'];
+ fragment ESCAPE_SEQUENCE : '\\' ('n' | '\\');
 
 //Integers
 INT_LITERAL : (MINUS)?[0-9]+;
