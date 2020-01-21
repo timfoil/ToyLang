@@ -2,7 +2,14 @@
 .idea/
 out/
 lib/
+
 # src will be changing a lot allow it later
-src/
-output/
+generated-src/
 reference/
+
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

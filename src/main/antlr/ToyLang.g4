@@ -1,6 +1,10 @@
 
 grammar ToyLang;
 
+//@header {
+//package net.travitz.lang.toy;
+//}
+
 module : functions? EOF;
 //trait_decl : 'trait' ID trait_block;
 
@@ -166,12 +170,12 @@ primitive_types : 'bool' #bool
                 | 'string' #str
                 ;
 
-STRING_LITERAL : STRING_DEL STRING_REST;
+STRING_LITERAL : STRING_DEL STRING_CONTENT;
 
 //String Things
- fragment STRING_REST :
-            | STRING_CHARACTER STRING_REST
-            | ESCAPE_SEQUENCE STRING_REST
+ fragment STRING_CONTENT :
+            | STRING_CHARACTER STRING_CONTENT
+            | ESCAPE_SEQUENCE STRING_CONTENT
             | STRING_DEL
             ;
 
