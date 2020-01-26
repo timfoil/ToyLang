@@ -1,8 +1,10 @@
 package net.travitz.lang.toy;
 
+import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,55 +17,59 @@ import java.io.IOException;
  */
 public class ParsingTest {
 
+    String syntaxErrorToyFile = "ToyTestCode\\SyntaxError.toy";
     String arraysToyFile = "ToyTestCode\\arrays.toy";
     String expressionTestsToyFile = "ToyTestCode\\ExpressionTests.toy";
     String moreFunctionsToyFile = "ToyTestCode\\MoreFunctions.toy";
     String oneFunctionToyFile = "ToyTestCode\\OneFunction.toy";
     String stringsToyFile = "ToyTestCode\\strings.toy";
 
+    @Test(expected = ParseCancellationException.class)
+    public void testFailure() throws IOException {
+        testFile(syntaxErrorToyFile);
+    }
 
     @Test
     public void testParseArrays() throws IOException {
-        CharStream fileStream = CharStreams.fromFileName(arraysToyFile);
-        ToyLangLexer toyLex = new ToyLangLexer(fileStream);
-        CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
-        ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
-        toyParse.module();
+        testFile(arraysToyFile);
+    }
+
+    @Test
+    public void testParseMoreFunctions() throws IOException {
+        testFile(moreFunctionsToyFile);
     }
 
     @Test
     public void testParseExpression() throws IOException {
-        CharStream fileStream = CharStreams.fromFileName(expressionTestsToyFile);
-        ToyLangLexer toyLex = new ToyLangLexer(fileStream);
-        CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
-        ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
-        toyParse.module();
-    }
-
-    @Test //Currently not failing TODO
-    public void testParseMoreFunctions() throws IOException {
-        CharStream fileStream = CharStreams.fromFileName(moreFunctionsToyFile);
-        ToyLangLexer toyLex = new ToyLangLexer(fileStream);
-        CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
-        ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
-        toyParse.module();
+        testFile(expressionTestsToyFile);
     }
 
     @Test
     public void testParseOneFunction() throws IOException {
-        CharStream fileStream = CharStreams.fromFileName(oneFunctionToyFile);
-        ToyLangLexer toyLex = new ToyLangLexer(fileStream);
-        CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
-        ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
-        toyParse.module();
+        testFile(oneFunctionToyFile);
     }
 
     @Test
     public void testParseStrings() throws IOException {
-        CharStream fileStream = CharStreams.fromFileName(stringsToyFile);
+        testFile(stringsToyFile);
+    }
+
+    /**
+     * Parse a ToyLang file
+     *
+     * Throws {@link ParseCancellationException} instead of silently printing to std-error if there is a problem during
+     * parsing
+     *
+     * @param arraysToyFile path to the toyFile to parse
+     * @throws IOException thrown if there was an problem accessing the path given by arraysToyFile
+     * @throws ParseCancellationException if an error was encountered during parsing
+     */
+    private static void testFile(String arraysToyFile) throws IOException, ParseCancellationException {
+        CharStream fileStream = CharStreams.fromFileName(arraysToyFile);
         ToyLangLexer toyLex = new ToyLangLexer(fileStream);
         CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
         ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
+        toyParse.setErrorHandler(new BailErrorStrategy());
         toyParse.module();
     }
 }
