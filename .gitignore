@@ -1,9 +1,11 @@
 *.iml
+*.ipr
+*.iws
 .idea/
 out/
 lib/
 
-# src will be changing a lot allow it later
+# src will be changing a lot, allow it later
 generated-src/
 reference/
 
