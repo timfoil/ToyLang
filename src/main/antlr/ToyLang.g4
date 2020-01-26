@@ -125,9 +125,10 @@ array_access : ('[' | '?[') expression ']' chained_end?;
 
 built_in_func_call : primitive_types DOT_OP ID args chained_end?; //built in function
 
-func_call : args chained_end?;                        //local args
+func_call : args chained_end?;  //local args
 
-member_access : DOT_OP ID chained_end?;
+member_access : DOT_OP ID args chained_end? //member function
+              | DOT_OP ID chained_end; //member value
 
 chained_end_new : func_call
                 | member_access
