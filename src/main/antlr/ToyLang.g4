@@ -235,10 +235,12 @@ LESS_THAN_OR_EQ : '<=';
 GREATER_THAN_OR_EQ : '>=';
 INCR : '++';
 DECR : '--';
+
+DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
 DOT : '.';
 DOT_SAFE : '?.';
 DOT_UNSAFE : '!!.';
-DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
+
 ELVIS : '?|';
 FORCE_UNWRAP: '!!';
 
