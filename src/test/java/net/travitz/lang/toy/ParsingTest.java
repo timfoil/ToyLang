@@ -17,12 +17,12 @@ import java.io.IOException;
  */
 public class ParsingTest {
 
-    String syntaxErrorToyFile = "ToyTestCode\\SyntaxError.toy";
-    String arraysToyFile = "ToyTestCode\\arrays.toy";
-    String expressionTestsToyFile = "ToyTestCode\\ExpressionTests.toy";
-    String moreFunctionsToyFile = "ToyTestCode\\MoreFunctions.toy";
-    String oneFunctionToyFile = "ToyTestCode\\OneFunction.toy";
-    String stringsToyFile = "ToyTestCode\\strings.toy";
+    String syntaxErrorToyFile = "ToyTestCode/SyntaxError.toy";
+    String arraysToyFile = "ToyTestCode/arrays.toy";
+    String expressionTestsToyFile = "ToyTestCode/ExpressionTests.toy";
+    String moreFunctionsToyFile = "ToyTestCode/MoreFunctions.toy";
+    String oneFunctionToyFile = "ToyTestCode/OneFunction.toy";
+    String stringsToyFile = "ToyTestCode/strings.toy";
 
     @Test(expected = ParseCancellationException.class)
     public void testFailure() throws IOException {
