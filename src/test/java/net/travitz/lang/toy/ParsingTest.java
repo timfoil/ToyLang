@@ -18,11 +18,11 @@ import java.io.IOException;
 public class ParsingTest {
 
     String syntaxErrorToyFile = "ToyTestCode/SyntaxError.toy";
-    String arraysToyFile = "ToyTestCode/arrays.toy";
+    String arraysToyFile = "ToyTestCode/Arrays.toy";
     String expressionTestsToyFile = "ToyTestCode/ExpressionTests.toy";
     String moreFunctionsToyFile = "ToyTestCode/MoreFunctions.toy";
     String oneFunctionToyFile = "ToyTestCode/OneFunction.toy";
-    String stringsToyFile = "ToyTestCode/strings.toy";
+    String stringsToyFile = "ToyTestCode/Strings.toy";
 
     @Test(expected = ParseCancellationException.class)
     public void testFailure() throws IOException {
