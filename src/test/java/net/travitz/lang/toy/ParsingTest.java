@@ -60,12 +60,12 @@ public class ParsingTest {
      * Throws {@link ParseCancellationException} instead of silently printing to std-error if there is a problem during
      * parsing
      *
-     * @param arraysToyFile path to the toyFile to parse
+     * @param toyFile path to the toyFile to parse
      * @throws IOException thrown if there was an problem accessing the path given by arraysToyFile
      * @throws ParseCancellationException if an error was encountered during parsing
      */
-    private static void testFile(String arraysToyFile) throws IOException, ParseCancellationException {
-        CharStream fileStream = CharStreams.fromFileName(arraysToyFile);
+    private static void testFile(String toyFile) throws IOException, ParseCancellationException {
+        CharStream fileStream = CharStreams.fromFileName(toyFile);
         ToyLangLexer toyLex = new ToyLangLexer(fileStream);
         CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
         ToyLangParser toyParse = new ToyLangParser(toyTokenStream);

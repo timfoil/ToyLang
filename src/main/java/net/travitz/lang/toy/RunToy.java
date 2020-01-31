@@ -13,7 +13,7 @@ public class RunToy {
             ToyLangLexer toyLex = new ToyLangLexer(fileStream);
             CommonTokenStream toyTokenStream = new CommonTokenStream(toyLex);
             ToyLangParser toyParse = new ToyLangParser(toyTokenStream);
-            System.out.println(toyParse.functions().toStringTree(toyParse));
+            System.out.println(toyParse.module().toStringTree(toyParse));
             System.out.println("hi");
         } catch (IOException e) {
             e.printStackTrace();

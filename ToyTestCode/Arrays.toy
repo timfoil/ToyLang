@@ -4,8 +4,8 @@ fun void arrays() {
    let [int] b = [1]; //create a constant array ... elements, using array initializer
    let mut [bool] c = [yes];
    let mut [mut bool] d = [yes, no, on, off];
-   //TODO how to imply optional form on rhs?
-   //TODO how to imply mutable containers?
+
+
    let mut [mut int?]? e = [1, 2, 3, 4, 5, 6];
 
     //multidimensional arrays with mutable optionals at every step
