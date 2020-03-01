@@ -10,7 +10,7 @@ public interface SymbolTable {
      * @param symbol name of the symbol
      * @param type symbol type
      */
-    boolean addToFileScope(String symbol, String type);
+    void addToFileScope(String symbol, String type);
 
 
     /**
@@ -18,7 +18,7 @@ public interface SymbolTable {
      * @param symbol name of the symbol
      * @param type symbol type
      */
-    boolean addToScope(String symbol, String type);
+    void addToScope(String symbol, String type);
 
 
     /**
@@ -49,7 +49,7 @@ public interface SymbolTable {
      *
      * @return <code>true</code> if the symbol exists in the current scope, <code>false</code> otherwise
      */
-    boolean symbolExistsInCurrentScope();
+    boolean symbolExistsInCurrentScope(String symbol);
 
 
     /**
