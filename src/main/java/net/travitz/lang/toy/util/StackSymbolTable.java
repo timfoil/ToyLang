@@ -3,6 +3,10 @@ package net.travitz.lang.toy.util;
 import java.util.HashMap;
 import java.util.Stack;
 
+
+/**
+ * Symbol table implementation that uses a stack
+ */
 public class StackSymbolTable implements SymbolTable {
 
     /** Top level scope, scope level 0 */
@@ -20,26 +24,6 @@ public class StackSymbolTable implements SymbolTable {
         scopeStack = new Stack<>();
         scopeStack.push(fileScope);
         scopeLevel = 0;
-    }
-
-    /**
-     * Scope implementation. Basically a wrapper around a HashMap to improve code readability. May change this from a
-     * nested static class to its standalone file if I ever end up making more than one symbol-table class.
-     */
-    private static class Scope {
-        HashMap<String, String> symbols = new HashMap<>();
-
-        public void addToScope(String symbol, String type) {
-            symbols.put(symbol, type);
-        }
-
-        public boolean symbolExistsInScope(String symbol) {
-            return symbols.containsKey(symbol);
-        }
-
-        public String lookupSymbol(String symbol) {
-            return symbols.get(symbol);
-        }
     }
 
     @Override
