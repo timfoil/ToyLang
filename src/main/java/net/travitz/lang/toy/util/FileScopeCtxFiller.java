@@ -27,7 +27,7 @@ public class FileScopeCtxFiller extends ToyLangBaseListener {
         //System.out.println(ctx.getText());
 
         String returnType = ctx.type() == null ? ctx.VOID().getText() : ctx.type().getText();
-        StringJoiner listOfParams = new StringJoiner(", ", "(", ")->(" + returnType + ")");
+        StringJoiner listOfParams = new StringJoiner(", ", "(", ")->" + returnType);
 
         // while node still exists (there are arguments left), node = node.next
         for (Params_listContext node = ctx.params().params_list(); node != null; node = node.params_list()) {
