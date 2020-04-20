@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Symbol table implementation that uses an ArrayList as the backing data-structure
  */
-public class ALTable implements SymbolTable {
+public class ALSymbolTable implements SymbolTable {
 
     /**
      * Top level scope, scope level 0
@@ -20,7 +20,7 @@ public class ALTable implements SymbolTable {
     /**
      * Default constructor
      */
-    public ALTable() {
+    public ALSymbolTable() {
         fileScope = new Scope();
         scopeList = new ArrayList<>();
         scopeList.add(fileScope);
