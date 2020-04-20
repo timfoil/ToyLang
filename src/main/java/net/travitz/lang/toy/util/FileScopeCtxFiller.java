@@ -10,13 +10,13 @@ import java.util.StringJoiner;
 
 public class FileScopeCtxFiller extends ToyLangBaseListener {
 
-    StackSymbolTable symbols;
+    ALSymbolTable symbols;
 
     public FileScopeCtxFiller() {
-        this.symbols = new StackSymbolTable();
+        this.symbols = new ALSymbolTable();
     }
 
-    public FileScopeCtxFiller(StackSymbolTable symbols) {
+    public FileScopeCtxFiller(ALSymbolTable symbols) {
         this.symbols = symbols;
     }
 
@@ -39,7 +39,7 @@ public class FileScopeCtxFiller extends ToyLangBaseListener {
         symbols.addToFileScope(ctx.getToken(ToyLangLexer.ID,0).getText(), listOfParams.toString());
     }
 
-    public StackSymbolTable getSymbols() {
+    public ALSymbolTable getSymbolTable() {
         return symbols;
     }
 }
