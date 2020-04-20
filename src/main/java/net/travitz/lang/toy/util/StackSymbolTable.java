@@ -43,7 +43,7 @@ public class StackSymbolTable implements SymbolTable {
 
     @Override
     public void exitScope() {
-        if (scopeStack.empty()) {
+        if (scopeLevel == 0 || scopeStack.empty()) {
             throw new RuntimeException("No scopes left to exit");
         }
         scopeLevel--;
