@@ -47,9 +47,18 @@ public interface SymbolTable {
     /**
      * Return whether or not the symbol exists in the current scope
      *
+     * @param symbol name of a symbol
      * @return <code>true</code> if the symbol exists in the current scope, <code>false</code> otherwise
      */
     boolean symbolExistsInCurrentScope(String symbol);
+
+    /**
+     * Return whether or not the symbol exists in any scope
+     *
+     * @param symbol name of a symbol
+     * @return <code>true</code> if the symbol exists in any scope, <code>false</code> otherwise
+     */
+    boolean symbolExists(String symbol);
 
 
     /**
