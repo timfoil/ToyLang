@@ -6,15 +6,7 @@ package net.travitz.lang.toy.util;
 public interface SymbolTable {
 
     /**
-     * Add symbol to the top-level scope
-     * @param symbol name of the symbol
-     * @param type symbol type
-     */
-    void addToFileScope(String symbol, String type);
-
-
-    /**
-     * Add symbol to the current scope
+     * Add symbol to the current scope, replaces the old symbol in the current scope if one already exists
      * @param symbol name of the symbol
      * @param type symbol type
      */
