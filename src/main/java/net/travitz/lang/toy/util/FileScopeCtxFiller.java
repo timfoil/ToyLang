@@ -45,7 +45,7 @@ public class FileScopeCtxFiller extends ToyLangBaseListener {
         }
 
         // Looks like you have to decide for yourself what rule was taken based off of child size and if values are null
-        symbols.addToFileScope(ctx.getToken(ToyLangLexer.ID,0).getText(), listOfParams.toString());
+        symbols.addToScope(ctx.getToken(ToyLangLexer.ID,0).getText(), listOfParams.toString());
     }
 
     public ALSymbolTable getSymbolTable() {
