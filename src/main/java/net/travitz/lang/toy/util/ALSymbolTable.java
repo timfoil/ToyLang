@@ -119,7 +119,7 @@ public class ALSymbolTable implements SymbolTable {
     }
 
     public String lookupSymbolInScopeAtLevel(String symbol, int level) {
-        if (level >= 0 && level <= scopeLevel()) {
+        if (level >= 0 && level <= getScopeLevel()) {
             if (symbolExistsInScopeAtLevel(symbol, level)) {
                 return scopeList.get(level).lookupSymbol(symbol);
             } else {
@@ -132,7 +132,7 @@ public class ALSymbolTable implements SymbolTable {
     }
 
     public boolean symbolExistsInScopeAtLevel(String symbol, int level) {
-        if (level >= 0 && level <= scopeLevel()) {
+        if (level >= 0 && level <= getScopeLevel()) {
             return scopeList.get(level).symbolExistsInScope(symbol);
         } else {
             throw new IndexOutOfBoundsException("Level must be a non-negative number less than or equal the current " +
@@ -146,7 +146,7 @@ public class ALSymbolTable implements SymbolTable {
     }
 
     @Override
-    public int scopeLevel() {
+    public int getScopeLevel() {
         return scopeList.size() - 1;
     }
 }

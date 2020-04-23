@@ -58,5 +58,5 @@ public interface SymbolTable {
      *
      * @return current scope level
      */
-    int scopeLevel();
+    int getScopeLevel();
 }
