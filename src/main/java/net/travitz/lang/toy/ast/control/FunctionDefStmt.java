@@ -1,15 +1,14 @@
 package net.travitz.lang.toy.ast.control;
 
-import net.travitz.lang.toy.ast.Block;
 import net.travitz.lang.toy.ast.Statement;
 import net.travitz.lang.toy.ast.ToyType;
 
 import java.util.ArrayList;
 
 
-public class FunctionDefBlock implements Statement {
+public class FunctionDefStmt implements Statement {
 
-    Block functionContents;
+    ArrayList<Statement> functionContents;
     ArrayList<ToyType> parameters;
     ToyType returnType;
 

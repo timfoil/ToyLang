@@ -1,22 +1,21 @@
 package net.travitz.lang.toy.ast.control;
 
-import net.travitz.lang.toy.ast.Block;
 import net.travitz.lang.toy.ast.Statement;
 import net.travitz.lang.toy.ast.ToyType;
 
 import java.util.ArrayList;
 
-public class IfBlock implements Statement {
+public class IfStmt implements Statement {
 
     Statement condition;
 
-    Block ifBlock;
+    ArrayList<Statement> ifBlock;
     ArrayList<ElseIf> ifElseBlocks;
-    Block elseBlock;
+    ArrayList<Statement> elseBlock;
 
     private static class ElseIf {
         Statement condition;
-        Block ifBlock;
+        ArrayList<Statement> ifBlock;
     }
 
     @Override
