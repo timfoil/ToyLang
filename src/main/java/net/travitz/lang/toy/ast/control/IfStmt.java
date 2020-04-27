@@ -20,7 +20,7 @@ public class IfStmt implements Statement {
 
     @Override
     public String getIR() {
-        return null;
+        return null; //TODO
     }
 
     @Override
