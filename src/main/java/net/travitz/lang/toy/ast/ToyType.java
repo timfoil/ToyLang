@@ -2,7 +2,7 @@ package net.travitz.lang.toy.ast;
 
 public class ToyType {
     boolean mutable;
-
+    boolean nullable;
     //If we are an array we need these filled
     boolean isArray;
     ToyType arrayType;
