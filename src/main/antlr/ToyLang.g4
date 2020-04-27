@@ -53,9 +53,11 @@ if_statement : IF expression scope else_clause //(assignment | expression) scope
 else_clause: ELSEIF expression scope else_clause?
            | ELSE scope;
 
-assignment : LET MUT? type? assignable ASSIGNOP expression //may need to put a : in between type and ID ?
-           | assignable ASSIGNOP expression
+//may need to put a : in between type and ID ?
+assignment : LET MUT? type? assignable ASSIGNOP expression //Declaration
+           | assignable ASSIGNOP expression //regular assignment
            ;
+
 //TODO double check this logic
 assignable : ID assignable_next?;
 
