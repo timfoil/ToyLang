@@ -1,4 +1,4 @@
-package net.travitz.lang.toy.ast.control;
+package net.travitz.lang.toy.ast.expression;
 
 
 import net.travitz.lang.toy.ast.Statement;
