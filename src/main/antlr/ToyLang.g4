@@ -46,8 +46,8 @@ loop_statement : FOR assignment SEMI expression SEMI expression scope //classic 
 //currently only if, maybe add switches
 control_statement : if_statement;
 
-if_statement : IF expression scope else_clause //(assignment | expression) scope else_clause
-             | IF expression scope else_clause //(assignment | expression) scope
+if_statement : IF (assignment | expression) scope else_clause
+             | IF (assignment | expression) scope
              ;
 
 else_clause: ELSEIF expression scope else_clause?
