@@ -90,16 +90,15 @@ comparison_exp : comparison_exp EQUALS add_sub_exp
                | add_sub_exp
                ;
 
-add_sub_exp : add_sub_exp '+' mult_div_exp
-            | add_sub_exp '-' mult_div_exp
+add_sub_exp : add_sub_exp (PLUS | MINUS) mult_div_exp
             | mult_div_exp
             ;
 
-mult_div_exp : mult_div_exp ('*' | '/' | '%') pre_incr_decr
+mult_div_exp : mult_div_exp (MULT | DIV | MOD) pre_incr_decr
              | pre_incr_decr;
 
 pre_incr_decr : (INCR | DECR) post_incr_decr
-              | '!' post_incr_decr
+              | NOT post_incr_decr
               | post_incr_decr
               ;
 
@@ -244,14 +243,22 @@ DOT : '.';
 DOT_SAFE : '?.';
 DOT_UNSAFE : '!!.';
 
+
 ELVIS : '?|';
+
+//TODO double exclamation marks look very awkward, hopefully find a way to solve following problem.
+//TODO this needs looked at 'if (id! = 5)' vs 'if (id != 5)' ambiguous maybe?
+//TODO Maybe use hidden channel and context sensitivity?
 FORCE_UNWRAP: '!!';
+
+NOT : '!';
 
 //Math symbols
 MULT : '*';
 DIV : '/';
 MINUS : '-';
 PLUS : '+';
+MOD : '%';
 
 //Misc. brackets and puntuation
 SEMI : ';';
