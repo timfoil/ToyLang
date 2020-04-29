@@ -5,6 +5,8 @@ import net.travitz.lang.toy.ast.ToyType;
 
 public class ReturnStmt implements Statement {
 
+    ExpressionStmt val;
+
     @Override
     public String getIR() {
         return null;
@@ -12,6 +14,6 @@ public class ReturnStmt implements Statement {
 
     @Override
     public ToyType getExpressionReturnVal() {
-        return null;
+        return (val == null) ? null : val.getExpressionReturnVal();
     }
 }
