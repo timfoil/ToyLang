@@ -59,11 +59,11 @@ assignment : LET MUT? type? assignable ASSIGNOP expression //Declaration
            ;
 
 //TODO double check this logic
-assignable : ID assignable_next?;
+assignable : ID assignable_next*;
 
 //TODO also give this operator a question mark op for conditional assignment
-assignable_next : ('[' | '?[') expression ']' assignable_next?
-                | DOT_OP ID assignable_next?;
+assignable_next : ('[' | '?[') expression ']'
+                | DOT_OP ID ;
 
 
 args : '(' arg_list ')'
