@@ -13,17 +13,17 @@ functions : function+;
 
 function : FUNC (type | VOID) ID params scope;
 
-params : '(' ')'              //no params
-       | '(' params_list ')'; //params
+params : LEFT_PAREN RIGHT_PAREN              //no params
+       | LEFT_PAREN params_list RIGHT_PAREN; //params
 
-params_list : params_list ',' param
+params_list : params_list COMMA_SEP param
             | param
             ;
 
 param : type ID;
 
-scope : '{' statements '}' //statements
-      | '{' '}' ;          //no statements
+scope : LEFT_CURLY statements RIGHT_CURLY //statements
+      | LEFT_CURLY RIGHT_CURLY ;          //no statements
 
 statements : statement+ ;
 
@@ -54,22 +54,22 @@ else_clause: ELSEIF expression scope else_clause?
            | ELSE scope;
 
 //may need to put a : in between type and ID ?
-assignment : LET MUT? type? assignable ASSIGNOP expression //Declaration
-           | assignable ASSIGNOP expression //regular assignment
+assignment : LET MUT? type? assignable ASSIGN_OP expression //Declaration
+           | assignable ASSIGN_OP expression //regular assignment
            ;
 
 //TODO double check this logic
 assignable : ID assignable_next*;
 
 //TODO also give this operator a question mark op for conditional assignment
-assignable_next : ('[' | '?[') expression ']'
+assignable_next : (LEFT_SQUARE | LEFT_ARR_SAFE) expression RIGHT_SQUARE // do some research, make sure you want ?[ operator
                 | DOT_OP ID ;
 
 
-args : '(' arg_list ')'
-     | '(' ')'; //emptyArgs
+args : LEFT_PAREN arg_list RIGHT_PAREN
+     | LEFT_PAREN RIGHT_PAREN; //emptyArgs
 
-arg_list : arg_list ',' expression
+arg_list : arg_list COMMA_SEP expression
          | expression
          ;
 
@@ -82,11 +82,7 @@ and_exp : and_exp AND comparison_exp
         | comparison_exp
         ;
 
-comparison_exp : comparison_exp EQUALS add_sub_exp
-               | comparison_exp GREATER_THAN_OR_EQ add_sub_exp
-               | comparison_exp LESS_THAN_OR_EQ add_sub_exp
-               | comparison_exp LESS_THAN add_sub_exp
-               | comparison_exp GREATER_THAN add_sub_exp
+comparison_exp : comparison_exp VALUE_COMPARISON add_sub_exp
                | add_sub_exp
                ;
 
@@ -98,7 +94,7 @@ mult_div_exp : mult_div_exp (MULT | DIV | MOD) pre_incr_decr
              | pre_incr_decr;
 
 pre_incr_decr : (INCR | DECR) post_incr_decr
-              | NOT post_incr_decr
+              | NOT_FORCE_UNWRAP post_incr_decr
               | post_incr_decr
               ;
 
@@ -113,9 +109,9 @@ parenthesized : '(' expression ')'
               ;
 
 //Short and simple/messy way to create an array, this will likely require more thought in the future?
-array_literal : '[' arr_elements ']';
+array_literal : LEFT_SQUARE arr_elements RIGHT_SQUARE;
 
-arr_elements : arr_elements ',' arr_element
+arr_elements : arr_elements COMMA_SEP arr_element
              | arr_element
              ;
 
@@ -134,14 +130,14 @@ member_access : DOT_OP ID args chained_end? //member function
 chained_end_new : func_call
                 | member_access
                 | array_access
-                | FORCE_UNWRAP
+                | NOT_FORCE_UNWRAP
                 | end_elvis
                 ;
 
 chained_end : end_func
             | end_array
             | end_member
-            | FORCE_UNWRAP
+            | NOT_FORCE_UNWRAP
             | end_elvis
             ;
 literals : array_literal
@@ -152,7 +148,7 @@ literals : array_literal
 
 end_func : DOT_OP ID args chained_end? ;
 
-end_array : DOT_OP ID '?[' expression ']' chained_end?;
+end_array : DOT_OP ID (LEFT_ARR_SAFE | LEFT_SQUARE) expression RIGHT_SQUARE chained_end?;
 
 end_member : DOT_OP ID chained_end?;
 
@@ -184,6 +180,7 @@ STRING_LITERAL : STRING_DEL STRING_CONTENT;
 
  fragment STRING_CHARACTER : ~[\\\r\n'];
  fragment ESCAPE_SEQUENCE : '\\' ('n' | '\\');
+
 
 //Integers
 INT_LITERAL : (MINUS)?[0-9]+;
@@ -217,7 +214,14 @@ TRUE : 'true';
 FALSE : 'false';
 
 //Assignment stuff
-ASSIGNOP : (EQ | PEQ | MEQ | TEQ | DIVEQ | MODEQ);
+ASSIGN_OP : (EQ | PEQ | MEQ | TEQ | DIVEQ | MODEQ);
+
+VALUE_COMPARISON: EQUALS
+                | NOT_EQUAL
+                | LESS_THAN
+                | LESS_THAN_OR_EQ
+                | GREATER_THAN
+                | GREATER_THAN_OR_EQ;
 EQ : '=' ;
 PEQ : '+=';
 TEQ : '*=';
@@ -235,13 +239,14 @@ LESS_THAN : '<';
 GREATER_THAN : '>';
 LESS_THAN_OR_EQ : '<=';
 GREATER_THAN_OR_EQ : '>=';
+
 INCR : '++';
 DECR : '--';
 
 DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
 DOT : '.';
 DOT_SAFE : '?.';
-DOT_UNSAFE : '!!.';
+DOT_UNSAFE : '!.';
 
 
 ELVIS : '?|';
@@ -249,9 +254,15 @@ ELVIS : '?|';
 //TODO double exclamation marks look very awkward, hopefully find a way to solve following problem.
 //TODO this needs looked at 'if (id! = 5)' vs 'if (id != 5)' ambiguous maybe?
 //TODO Maybe use hidden channel and context sensitivity?
-FORCE_UNWRAP: '!!';
 
-NOT : '!';
+//TODO in scenario where unwrap is merely '!'
+// foo != bar, good
+// foo! = bar, bad
+
+// foo! == bar, good
+// foo != = bar, bad
+
+NOT_FORCE_UNWRAP : '!';
 
 //Math symbols
 MULT : '*';
@@ -267,8 +278,10 @@ COMMA_SEP : ',';
 LEFT_PAREN : '(';
 RIGHT_PAREN : ')';
 LEFT_SQUARE : '[';
-LEFTW_ARR_SAFE : '?[';
+LEFT_ARR_SAFE : '?[';
 RIGHT_SQUARE : ']';
+LEFT_CURLY : '{';
+RIGHT_CURLY : '}';
 OPTIONAL_IND : '?';
 
 //good ol' fashioned comments
