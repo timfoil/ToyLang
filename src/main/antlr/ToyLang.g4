@@ -155,12 +155,12 @@ end_member : DOT_OP ID chained_end?;
 end_elvis : ELVIS expression;
 
 
-type : array OPTIONAL_IND?
-     | primitive_types OPTIONAL_IND?
-     | ID OPTIONAL_IND?
+type : array DIRTY_IND?
+     | primitive_types DIRTY_IND?
+     | ID DIRTY_IND?
      ;
 
-//A question mark inside of the brackets indicates an optional array reference
+//A question mark inside of the brackets indicates an dirty array reference
 array : LEFT_SQUARE MUT? type RIGHT_SQUARE;
 
 primitive_types : 'bool' #bool
@@ -247,21 +247,7 @@ DOT_OP : (DOT | DOT_SAFE | DOT_UNSAFE);
 DOT : '.';
 DOT_SAFE : '?.';
 DOT_UNSAFE : '!.';
-
-
 ELVIS : '?|';
-
-//TODO double exclamation marks look very awkward, hopefully find a way to solve following problem.
-//TODO this needs looked at 'if (id! = 5)' vs 'if (id != 5)' ambiguous maybe?
-//TODO Maybe use hidden channel and context sensitivity?
-
-//TODO in scenario where unwrap is merely '!'
-// foo != bar, good
-// foo! = bar, bad
-
-// foo! == bar, good
-// foo != = bar, bad
-
 NOT_FORCE_UNWRAP : '!';
 
 //Math symbols
@@ -282,7 +268,7 @@ LEFT_ARR_SAFE : '?[';
 RIGHT_SQUARE : ']';
 LEFT_CURLY : '{';
 RIGHT_CURLY : '}';
-OPTIONAL_IND : '?';
+DIRTY_IND : '?';
 
 //good ol' fashioned comments
 LINE_COMMENT : '//' ~[\r\n]*? '\r'? '\n' -> skip;

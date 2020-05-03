@@ -1,22 +1,24 @@
 fun void arrays() {
-    //array creation
-   let [int] a = create_int_array(1); //create a constant array with const elements, using a function
-   let [int] b = [1]; //create a constant array ... elements, using array initializer
-   let mut [bool] c = [yes];
-   let mut [mut bool] d = [yes, no, on, off];
+    // array creation
+    let [int] a = create_int_array(1); //create a constant array with const elements, using a function
+    let [int] b = [1]; //create a constant array ... elements, using array initializer
+    let mut [bool] c = [yes];
+    let mut [mut bool] d = [yes, no, on, off];
 
 
-   let mut [mut int?]? e = [1, 2, 3, 4, 5, 6];
+    let mut [mut int?]? e = [1, 2, 3, 4, 5, 6];
 
-    //multidimensional arrays with mutable optionals at every step
-   let mut [mut [mut int?]?]? f = [[1, 2, 3, 4], [1, 2, 3, 4]];
+    // multidimensional arrays with mutable ?'s at every step
+    let mut [mut [mut int?]?]? f = [[1, 2, 3, 4], [1, 2, 3, 4]];
 
-    //push it to the limit
-   let mut [mut [mut [mut [mut bool?]?]?]?]? g = [[[[yes], [on]], [[no], [off]]], [[[off], [no]], [[yes], [on]]], NADA];
+    // push it to the limit
+    let mut [mut [mut [mut [mut bool?]?]?]?]? g = [[[[yes], [on]], [[no], [off]]], [[[off], [no]], [[yes], [on]]], NADA];
 
-   //array access
-   let a_access = a[0]; //indexed starting at 0
+    // array access
+    let a_access = a[0]; //indexed starting at 0
 
+    // dirty array access
+    let possibly_null = f?[0]?[1];
 }
 
 fun int returnSomething() {
