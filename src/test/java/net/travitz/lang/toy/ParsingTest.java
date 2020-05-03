@@ -23,6 +23,7 @@ public class ParsingTest {
     String moreFunctionsToyFile = "ToyTestCode/MoreFunctions.toy";
     String oneFunctionToyFile = "ToyTestCode/OneFunction.toy";
     String stringsToyFile = "ToyTestCode/Strings.toy";
+    String nullableToyFile = "ToyTestCode/Nullable.toy";
 
     @Test(expected = ParseCancellationException.class)
     public void testFailure() throws IOException {
@@ -52,6 +53,11 @@ public class ParsingTest {
     @Test
     public void testParseStrings() throws IOException {
         testFile(stringsToyFile);
+    }
+
+    @Test
+    public void testNullable() throws IOException {
+        testFile(nullableToyFile);
     }
 
     /**
