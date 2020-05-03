@@ -17,8 +17,13 @@ fun void arrays() {
     // array access
     let a_access = a[0]; //indexed starting at 0
 
+    let [[bool]] doublyNested = [[yes], [no]];
+
+    // Doubly nested access
+    let boolVal = doublyNested[1][0];
+
     // dirty array access
-    let possibly_null = f?[0]?[1];
+    let possiblyNothing = f?[0]?[1];
 }
 
 fun int returnSomething() {

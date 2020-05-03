@@ -148,7 +148,7 @@ literals : array_literal
 
 end_func : DOT_OP ID args chained_end? ;
 
-end_array : DOT_OP ID (LEFT_ARR_SAFE | LEFT_SQUARE) expression RIGHT_SQUARE chained_end?;
+end_array : (LEFT_ARR_SAFE | LEFT_SQUARE) expression RIGHT_SQUARE chained_end?;
 
 end_member : DOT_OP ID chained_end?;
 
