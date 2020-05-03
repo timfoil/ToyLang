@@ -1,7 +1,9 @@
-package net.travitz.lang.toy.util;
+package net.travitz.lang.toy.parsing;
 
 import net.travitz.lang.toy.ToyLangBaseListener;
 import net.travitz.lang.toy.ToyLangLexer;
+import net.travitz.lang.toy.util.ALSymbolTable;
+
 import java.util.Stack;
 
 import static net.travitz.lang.toy.ToyLangParser.*;

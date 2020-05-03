@@ -1,12 +1,8 @@
 
 grammar ToyLang;
 
-//@header {
-//package net.travitz.lang.toy;
-//}
 
 module : functions? EOF;
-//trait_decl : 'trait' ID trait_block;
 
 //TODO type declarations and interfaces/extensions
 functions : function+;
@@ -58,10 +54,8 @@ assignment : LET MUT? type? assignable ASSIGN_OP expression //Declaration
            | assignable ASSIGN_OP expression //regular assignment
            ;
 
-//TODO double check this logic
 assignable : ID assignable_next*;
 
-//TODO also give this operator a question mark op for conditional assignment
 assignable_next : (LEFT_SQUARE | LEFT_ARR_SAFE) expression RIGHT_SQUARE // do some research, make sure you want ?[ operator
                 | DOT_OP ID ;
 
@@ -117,7 +111,6 @@ arr_elements : arr_elements COMMA_SEP arr_element
 
 arr_element : expression;
 
-//TODO give this the option for this question mark op too? '?['
 array_access : ('[' | '?[') expression ']' chained_end?;
 
 built_in_func_call : primitive_types DOT_OP ID args chained_end?; //built in function
@@ -228,7 +221,6 @@ TEQ : '*=';
 MEQ : '-=';
 DIVEQ : '/=';
 MODEQ : '%=';
-
 
 //Common operators
 OR : '||';
