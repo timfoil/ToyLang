@@ -5,7 +5,7 @@ fun void main() {
 
     if foo! == 2 { }
 
-    if let bar = foo {
-    }
+    if let bar = foo { }
 
+    let baz = (foo ?| 2);
 }
