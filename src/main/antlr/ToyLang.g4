@@ -50,7 +50,7 @@ else_clause: ELSEIF expression scope else_clause?
            | ELSE scope;
 
 //may need to put a : in between type and ID ?
-assignment : LET MUT? type? assignable ASSIGN_OP expression //Declaration
+assignment : LET type? assignable ASSIGN_OP expression //Declaration
            | assignable ASSIGN_OP expression //regular assignment
            ;
 
@@ -147,14 +147,10 @@ end_member : DOT_OP ID chained_end?;
 
 end_elvis : ELVIS expression;
 
-
-type : array DIRTY_IND?
-     | primitive_types DIRTY_IND?
-     | ID DIRTY_IND?
-     ;
+type : MUT? (array | primitive_types | ID) DIRTY_IND?;
 
 //A question mark inside of the brackets indicates an dirty array reference
-array : LEFT_SQUARE MUT? type RIGHT_SQUARE;
+array : LEFT_SQUARE type RIGHT_SQUARE;
 
 primitive_types : 'bool' #bool
                 | 'int' #int
