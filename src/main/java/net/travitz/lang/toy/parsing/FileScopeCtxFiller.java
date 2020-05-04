@@ -4,11 +4,9 @@ import net.travitz.lang.toy.ToyLangBaseListener;
 import net.travitz.lang.toy.ToyLangLexer;
 import net.travitz.lang.toy.util.ALSymbolTable;
 
-import java.util.Stack;
-
 import static net.travitz.lang.toy.ToyLangParser.*;
 
-
+import java.util.Stack;
 import java.util.StringJoiner;
 
 public class FileScopeCtxFiller extends ToyLangBaseListener {

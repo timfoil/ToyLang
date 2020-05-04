@@ -56,7 +56,7 @@ assignment : LET type? assignable ASSIGN_OP expression //Declaration
 
 assignable : ID assignable_next*;
 
-assignable_next : (LEFT_SQUARE | LEFT_ARR_SAFE) expression RIGHT_SQUARE // do some research, make sure you want ?[ operator
+assignable_next : (LEFT_SQUARE | LEFT_ARR_SAFE) expression RIGHT_SQUARE
                 | DOT_OP ID ;
 
 
