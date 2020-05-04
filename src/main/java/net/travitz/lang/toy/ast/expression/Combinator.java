@@ -3,9 +3,9 @@ package net.travitz.lang.toy.ast.expression;
 import net.travitz.lang.toy.ast.Statement;
 import net.travitz.lang.toy.ast.ToyType;
 
-public class Combinator implements Statement {
-    Statement rhs;
-    Statement lhs;
+public class Combinator extends ExpressionStmt {
+    ExpressionStmt rhs;
+    ExpressionStmt lhs;
     String combination; //TODO make an enum?
 
     private enum CombinatorType {
@@ -14,11 +14,6 @@ public class Combinator implements Statement {
 
     @Override
     public String getIR() {
-        return null;
-    }
-
-    @Override
-    public ToyType getExpressionReturnVal() {
         return null;
     }
 }
