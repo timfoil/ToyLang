@@ -10,7 +10,7 @@ functions : function+;
 function : FUNC (type | VOID) ID params scope;
 
 params : LEFT_PAREN RIGHT_PAREN              //no params
-       | LEFT_PAREN params_list RIGHT_PAREN; //params
+       | LEFT_PAREN params_list? RIGHT_PAREN; //params
 
 params_list : params_list COMMA_SEP param
             | param
@@ -18,8 +18,7 @@ params_list : params_list COMMA_SEP param
 
 param : type ID;
 
-scope : LEFT_CURLY statements RIGHT_CURLY //statements
-      | LEFT_CURLY RIGHT_CURLY ;          //no statements
+scope : LEFT_CURLY statements? RIGHT_CURLY;
 
 statements : statement+ ;
 
@@ -32,7 +31,7 @@ statement : assignment SEMI       //Variable Assignment
           ;
 
 //A ret may or may not have something following it
-return_statement : RETURN expression? ;
+return_statement : RETURN expression?;
 
 loop_statement : FOR assignment SEMI expression SEMI expression scope //classic for
                | WHILE expression scope                               //conditional loop
@@ -42,8 +41,7 @@ loop_statement : FOR assignment SEMI expression SEMI expression scope //classic 
 //currently only if, maybe add switches
 control_statement : if_statement;
 
-if_statement : IF (assignment | expression) scope else_clause
-             | IF (assignment | expression) scope
+if_statement : IF (assignment | expression) scope else_clause?
              ;
 
 else_clause: ELSEIF expression scope else_clause?
@@ -57,11 +55,11 @@ assignment : LET type? assignable ASSIGN_OP expression //Declaration
 assignable : ID assignable_next*;
 
 assignable_next : (LEFT_SQUARE | LEFT_ARR_SAFE) expression RIGHT_SQUARE
-                | DOT_OP ID ;
+                | DOT_OP ID
+                ;
 
 
-args : LEFT_PAREN arg_list RIGHT_PAREN
-     | LEFT_PAREN RIGHT_PAREN; //emptyArgs
+args : LEFT_PAREN arg_list? RIGHT_PAREN;
 
 arg_list : arg_list COMMA_SEP expression
          | expression
@@ -85,7 +83,8 @@ add_sub_exp : add_sub_exp (PLUS | MINUS) mult_div_exp
             ;
 
 mult_div_exp : mult_div_exp (MULT | DIV | MOD) pre_incr_decr
-             | pre_incr_decr;
+             | pre_incr_decr
+             ;
 
 pre_incr_decr : (INCR | DECR) post_incr_decr
               | NOT_FORCE_UNWRAP post_incr_decr
@@ -103,7 +102,7 @@ parenthesized : '(' expression ')'
               ;
 
 //Short and simple/messy way to create an array, this will likely require more thought in the future?
-array_literal : LEFT_SQUARE arr_elements RIGHT_SQUARE;
+array_literal : LEFT_SQUARE arr_elements? RIGHT_SQUARE;
 
 arr_elements : arr_elements COMMA_SEP arr_element
              | arr_element
@@ -137,9 +136,10 @@ literals : array_literal
            | STRING_LITERAL
            | BOOLEAN_LITERAL
            | INT_LITERAL
-           | NADA;
+           | NADA
+           ;
 
-end_func : DOT_OP ID args chained_end? ;
+end_func : DOT_OP ID args chained_end?;
 
 end_array : (LEFT_ARR_SAFE | LEFT_SQUARE) expression RIGHT_SQUARE chained_end?;
 
@@ -157,13 +157,12 @@ primitive_types : 'bool' #bool
                 | 'string' #str
                 ;
 
-STRING_LITERAL : STRING_DEL STRING_CONTENT;
+STRING_LITERAL : STRING_DEL STRING_CONTENT STRING_DEL;
 
 //String Things
  fragment STRING_CONTENT :
             | STRING_CHARACTER STRING_CONTENT
             | ESCAPE_SEQUENCE STRING_CONTENT
-            | STRING_DEL
             ;
 
 
