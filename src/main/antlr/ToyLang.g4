@@ -45,7 +45,8 @@ if_statement : IF (assignment | expression) scope else_clause?
              ;
 
 else_clause: ELSEIF expression scope else_clause?
-           | ELSE scope;
+           | ELSE scope
+           ;
 
 //may need to put a : in between type and ID ?
 assignment : LET type? assignable ASSIGN_OP expression //Declaration
@@ -91,9 +92,7 @@ pre_incr_decr : (INCR | DECR) post_incr_decr
               | post_incr_decr
               ;
 
-post_incr_decr : parenthesized (INCR | DECR)
-               | parenthesized
-               ;
+post_incr_decr : parenthesized (INCR | DECR)?;
 
 parenthesized : '(' expression ')'
               | literals
@@ -157,7 +156,7 @@ primitive_types : 'bool' #bool
                 | 'string' #str
                 ;
 
-STRING_LITERAL : STRING_DEL STRING_CONTENT STRING_DEL;
+STRING_LITERAL : STRING_DEL STRING_CONTENT? STRING_DEL;
 
 //String Things
  fragment STRING_CONTENT :
