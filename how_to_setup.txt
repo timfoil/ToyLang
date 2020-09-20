@@ -8,7 +8,19 @@ grun net.travitz.lang.toy.ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.t
 
 (ran in 'ToyLang/build/classes/java/main' directory)
 
---- old info ---
+## Docker info
+
+## how to build dockerfile
+docker build --tag toylangenv:1.0 .
+
+## how to run a docker container in detached mode
+docker run -dit  toylangenv:1.0
+
+## how to attach to a running docker container
+docker attach <container-id/name>
+
+
+--- old antlr info ---
 
 ## How to generate parsers/lexers manually with antlr
 
