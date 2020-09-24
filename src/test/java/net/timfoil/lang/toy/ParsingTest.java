@@ -1,4 +1,4 @@
-package net.travitz.lang.toy;
+package net.timfoil.lang.toy;
 
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;

@@ -1,10 +1,10 @@
-package net.travitz.lang.toy.parsing;
+package net.timfoil.lang.toy.parsing;
 
-import net.travitz.lang.toy.ToyLangBaseListener;
-import net.travitz.lang.toy.ToyLangLexer;
-import net.travitz.lang.toy.util.ALSymbolTable;
+import net.timfoil.lang.toy.ToyLangBaseListener;
+import net.timfoil.lang.toy.ToyLangLexer;
+import net.timfoil.lang.toy.util.ALSymbolTable;
 
-import static net.travitz.lang.toy.ToyLangParser.*;
+import static net.timfoil.lang.toy.ToyLangParser.*;
 
 import java.util.Stack;
 import java.util.StringJoiner;

@@ -17,8 +17,8 @@ dependencies {
 }
 
 generateGrammarSource {
-    arguments += ['-visitor', '-package', 'net.travitz.lang.toy']
-    outputDirectory = file("generated-src/antlr/main/net/travitz/lang/toy")
+    arguments += ['-visitor', '-package', 'net.timfoil.lang.toy']
+    outputDirectory = file("generated-src/antlr/main/net/timfoil/lang/toy")
 }
 
 

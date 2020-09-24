@@ -4,7 +4,7 @@
 grun <path-to-class-files> <grammar-rule> -gui <path-to-toy-file>
 
 
-grun net.travitz.lang.toy.ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.toy
+grun net.timfoil.lang.toy.ToyLang module -gui ..\..\..\ToyTestCode\OneFunction.toy
 
 (ran in 'ToyLang/build/classes/java/main' directory)
 
@@ -27,4 +27,4 @@ docker attach <container-id/name>
  antlr4 is a bat file in the scripts/folder but I also have it in my PATH
  run this in the grammar directory for a quick way to generate the current grammar
 
-antlr4 ToyLang.g4 -o ..\output\ -visitor -package net.travitz.lang.toy
+antlr4 ToyLang.g4 -o ..\output\ -visitor -package net.timfoil.lang.toy

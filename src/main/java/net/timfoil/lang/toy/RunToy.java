@@ -1,6 +1,6 @@
-package net.travitz.lang.toy;
+package net.timfoil.lang.toy;
 
-import net.travitz.lang.toy.parsing.FileScopeCtxFiller;
+import net.timfoil.lang.toy.parsing.FileScopeCtxFiller;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;

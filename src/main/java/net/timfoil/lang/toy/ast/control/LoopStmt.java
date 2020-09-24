@@ -1,7 +1,7 @@
-package net.travitz.lang.toy.ast.control;
+package net.timfoil.lang.toy.ast.control;
 
-import net.travitz.lang.toy.ast.Statement;
-import net.travitz.lang.toy.ast.ToyType;
+import net.timfoil.lang.toy.ast.Statement;
+import net.timfoil.lang.toy.ast.ToyType;
 
 import java.util.ArrayList;
 

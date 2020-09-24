@@ -1,7 +1,7 @@
-package net.travitz.lang.toy.util;
-import net.travitz.lang.toy.ToyLangLexer;
-import net.travitz.lang.toy.ToyLangParser;
-import net.travitz.lang.toy.parsing.FileScopeCtxFiller;
+package net.timfoil.lang.toy.util;
+import net.timfoil.lang.toy.ToyLangLexer;
+import net.timfoil.lang.toy.ToyLangParser;
+import net.timfoil.lang.toy.parsing.FileScopeCtxFiller;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;

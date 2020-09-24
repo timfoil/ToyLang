@@ -1,4 +1,4 @@
-package net.travitz.wasm;
+package net.timfoil.wasm;
 
 public class WasmModule {
 

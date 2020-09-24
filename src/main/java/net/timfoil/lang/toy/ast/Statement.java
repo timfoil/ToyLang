@@ -1,4 +1,4 @@
-package net.travitz.lang.toy.ast;
+package net.timfoil.lang.toy.ast;
 
 public interface Statement {
     String getIR();

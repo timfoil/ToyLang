@@ -1,4 +1,4 @@
-package net.travitz.lang.toy.util;
+package net.timfoil.lang.toy.util;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

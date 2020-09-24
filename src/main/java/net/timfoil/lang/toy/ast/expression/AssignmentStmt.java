@@ -1,8 +1,8 @@
-package net.travitz.lang.toy.ast.expression;
+package net.timfoil.lang.toy.ast.expression;
 
 
-import net.travitz.lang.toy.ast.Statement;
-import net.travitz.lang.toy.ast.ToyType;
+import net.timfoil.lang.toy.ast.Statement;
+import net.timfoil.lang.toy.ast.ToyType;
 
 public class AssignmentStmt implements Statement {
     Statement lhs;

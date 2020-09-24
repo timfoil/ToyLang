@@ -1,13 +1,13 @@
-package net.travitz.lang.toy.parsing;
+package net.timfoil.lang.toy.parsing;
 
-import net.travitz.lang.toy.ToyLangBaseVisitor;
-import net.travitz.lang.toy.ast.Statement;
-import net.travitz.lang.toy.ast.control.FunctionDefStmt;
-import net.travitz.lang.toy.util.SymbolTable;
+import net.timfoil.lang.toy.ToyLangBaseVisitor;
+import net.timfoil.lang.toy.ast.Statement;
+import net.timfoil.lang.toy.ast.control.FunctionDefStmt;
+import net.timfoil.lang.toy.util.SymbolTable;
 
 import java.util.ArrayList;
 
-import static net.travitz.lang.toy.ToyLangParser.*;
+import static net.timfoil.lang.toy.ToyLangParser.*;
 
 public class ToyParser<T extends Statement> extends ToyLangBaseVisitor<T> {
     ArrayList<FunctionDefStmt> ast = new ArrayList<>();
