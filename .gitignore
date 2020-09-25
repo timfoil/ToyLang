@@ -1,6 +1,7 @@
 *.iml
 *.ipr
 *.iws
+*.code-workspace
 .idea/
 out/
 lib/
@@ -15,3 +16,4 @@ reference/
 
 # Ignore Gradle build output directory
 build
+
