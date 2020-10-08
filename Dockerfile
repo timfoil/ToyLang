@@ -40,8 +40,12 @@ WORKDIR "/root"
 ENV PATH "$PATH:/root/binaryen/bin/"
 ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk/"
 
+#copy everything
+COPY . .
 
 # copy dockerfile
 COPY ./Dockerfile /root
+
+
 
 ENTRYPOINT [ "/bin/bash" ]
