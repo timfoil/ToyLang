@@ -1,5 +1,5 @@
 # ToyLang
-Toylang is a toy in the literal sense as a tiny implementation of a language and a fun side-project. The name's brevity also lends itself to the creation of an acronym. Toy stands for: Tim's Outstanding Y..Y...YnnhgLanguage.
+Toylang is a toy in the literal sense as a tiny implementation of a language and a fun side-project. Toy stands for: Tim's Outstanding Y..Y...YnnhgLanguage.
 
 ## Design
 
